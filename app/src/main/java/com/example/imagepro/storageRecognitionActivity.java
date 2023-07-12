@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +35,7 @@ public class storageRecognitionActivity extends AppCompatActivity {
     private Button select_image;
     private ImageView recognizeImage_button;
     private ImageView image_view;
-    private TextView text_view;
+    //private TextView text_view;
     int Selected_Picture=200;
 
     private TextRecognizer textRecognizer;
@@ -58,8 +60,8 @@ public class storageRecognitionActivity extends AppCompatActivity {
         });
 
         textRecognizer= TextRecognition.getClient(new DevanagariTextRecognizerOptions.Builder().build());
-        text_view = findViewById(R.id.text_view);
-        text_view.setVisibility(View.GONE);
+        //text_view = findViewById(R.id.text_view);
+        //text_view.setVisibility(View.GONE);
 
         recognizeImage_button=findViewById(R.id.recognizeImage_button);
 
@@ -73,11 +75,12 @@ public class storageRecognitionActivity extends AppCompatActivity {
                 if(event.getAction()==MotionEvent.ACTION_UP){
                     recognizeImage_button.setColorFilter(Color.WHITE);
                     if(show_image_or_text=="text"){
-                        text_view.setVisibility(View.GONE);
+                        //text_view.setVisibility(View.GONE);
                         image_view.setVisibility(View.VISIBLE);
                         show_image_or_text="image";
+
                     }else{
-                        text_view.setVisibility(View.VISIBLE);
+                        //text_view.setVisibility(View.VISIBLE);
                         image_view.setVisibility(View.GONE);
                         show_image_or_text="text";
                     }
@@ -101,6 +104,18 @@ public class storageRecognitionActivity extends AppCompatActivity {
         if(resultCode==RESULT_OK){
             if(requestCode==Selected_Picture){
                 Uri selectedImageUri=data.getData();
+                //CHANGE
+                String[] filepath={MediaStore.Images.Media.DATA};
+
+                Cursor cursor = getContentResolver().query(selectedImageUri,filepath,null,null,null);
+                cursor.moveToFirst();
+                int columnIndex=cursor.getColumnIndex(filepath[0]);
+                String picturepath = cursor.getString(columnIndex);
+                cursor.close();
+
+                image_view.setImageBitmap(BitmapFactory.decodeFile(picturepath));
+                //CHANGE
+
                 if(selectedImageUri != null){
                     Log.d("storage_Activity","Output Uri: "+selectedImageUri);
 
@@ -115,7 +130,13 @@ public class storageRecognitionActivity extends AppCompatActivity {
                             .addOnSuccessListener(new OnSuccessListener<Text>() {
                                 @Override
                                 public void onSuccess(Text text) {
-                                    text_view.setText(text.getText());
+                                    //text_view.setText(text.getText());
+                                    //CHANGE
+                                    String str = text.getText().toString();
+                                    Intent intent = new Intent(getApplicationContext(),trActivity.class);
+                                    intent.putExtra("msg_key",str);
+                                    startActivity(intent);
+                                    //CHANGE
                                     Log.d("Storage_activity","Out: "+text.getText());
                                 }
                             }).addOnFailureListener(new OnFailureListener() {

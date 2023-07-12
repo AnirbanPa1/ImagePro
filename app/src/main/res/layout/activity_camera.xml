@@ -10,16 +10,16 @@
         android:id="@+id/frame_Surface"/>
 
     <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/current_image"
-        android:scaleType="fitXY"/>
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:scaleType="fitXY" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
         android:id="@+id/text_view"
-        android:background="@color/white"/>
+        android:layout_width="match_parent"
+        android:layout_height="630dp"
+        android:background="@color/white" />
 
 
     <LinearLayout

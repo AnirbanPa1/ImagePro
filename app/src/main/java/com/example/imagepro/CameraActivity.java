@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -162,7 +163,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                     translate_button.setColorFilter(Color.WHITE);
                     if(Camera_or_recognizeText=="recognizeText"){
 
-                        text_view.setVisibility(View.VISIBLE);
+                        //text_view.setVisibility(View.VISIBLE);
 
                         InputImage image = InputImage.fromBitmap(bitmap,0);
                         Task<Text> result = textRecognizer.process(image)
@@ -171,7 +172,13 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
                                     public void onSuccess(Text text) {
 
                                         text_view.setText(text.getText());
-                                        Log.d("CameraActivity","Out"+text.getText());// text to speech
+                                        //CHANGE
+                                        String str = text.getText().toString();
+                                        Intent intent = new Intent(getApplicationContext(),trActivity.class);
+                                        intent.putExtra("msg_key",str);
+                                        startActivity(intent);
+                                        //CHANGE
+                                        Log.d("CameraActivity","Out"+text.getText());
 
                                     }
                                 })
