@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -53,9 +54,9 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
     private Mat mGray;
     private CameraBridgeViewBase mOpenCvCameraView;
 
-    private ImageView translate_button;
-    private ImageView take_pic_button;
-    private ImageView show_image_button;
+    private ImageButton translate_button;
+    private ImageButton take_pic_button;
+    private ImageButton show_image_button;
 
     private ImageView current_image;
     private TextView text_view;
@@ -66,6 +67,10 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
 
     private Bitmap bitmap = null;
 
+    @Override
+    public void onBackPressed() {
+        startActivity(new Intent(this, MainActivity.class));
+    }
 
     private BaseLoaderCallback mLoaderCallback =new BaseLoaderCallback(this) {
         @Override
@@ -274,5 +279,7 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         return mRgba;
 
     }
+
+
 
 }

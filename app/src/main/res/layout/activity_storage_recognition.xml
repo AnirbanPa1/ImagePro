@@ -25,18 +25,28 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
-
         android:layout_gravity="bottom"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:id="@+id/recognizeImage_button"
+<!--        <ImageView-->
+<!--            android:layout_width="40dp"-->
+<!--            android:layout_height="40dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:id="@+id/recognizeImage_button"-->
+<!--            android:src="@drawable/translate_button_image"-->
+<!--            android:background="@android:color/holo_green_light"-->
+<!--            android:layout_marginRight="60dp"-->
+<!--            />-->
+        <ImageButton
+
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:id="@+id/rec_btn"
+            android:layout_marginBottom="10dp"
             android:src="@drawable/translate_button_image"
             android:background="@android:color/holo_green_light"
+
             />
 
     </LinearLayout>
@@ -53,11 +63,6 @@
             android:id="@+id/image_view"
             android:scaleType="fitXY"/>
 
-<!--        <TextView-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:id="@+id/text_view"-->
-<!--            android:text=""/>-->
 
     </RelativeLayout>
 
