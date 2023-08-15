@@ -39,6 +39,7 @@ public class storageRecognitionActivity extends AppCompatActivity {
     private ImageView image_view;
     //private TextView text_view;
     private ImageButton rec_btn;
+
     int Selected_Picture=200;
 
     private TextRecognizer textRecognizer;

@@ -36,14 +36,16 @@
             android:id="@+id/translate_button"
             android:src="@drawable/translate_button_image"
             android:layout_marginTop="10dp"
-            android:layout_marginRight="60dp"/>
+            android:layout_marginRight="60dp"
+            />
 
         <ImageButton
             android:layout_width="80dp"
             android:layout_height="80dp"
             android:id="@+id/take_pic_button"
             android:src="@drawable/camera_button_image"
-            android:layout_marginTop="10dp"/>
+            android:layout_marginTop="10dp"
+            />
 
         <ImageButton
 
@@ -52,7 +54,8 @@
             android:id="@+id/show_image_button"
             android:src="@drawable/image_button"
             android:layout_marginTop="10dp"
-            android:layout_marginLeft="60dp"/>
+            android:layout_marginLeft="60dp"
+            />
 
     </LinearLayout>
 
