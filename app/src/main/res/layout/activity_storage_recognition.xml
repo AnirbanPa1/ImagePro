@@ -4,7 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".storageRecognitionActivity">
+    tools:context=".storageRecognitionActivity"
+    android:background="#161a1d"
+    android:padding="10dp"
+    >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +21,8 @@
             android:layout_height="50dp"
             android:id="@+id/select_image"
             android:text="Select Image"
-            android:layout_marginTop="5dp"/>
+            android:background="@drawable/rounded_corner"
+            />
 
     </LinearLayout>
 
@@ -29,23 +33,14 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-<!--        <ImageView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginTop="10dp"-->
-<!--            android:id="@+id/recognizeImage_button"-->
-<!--            android:src="@drawable/translate_button_image"-->
-<!--            android:background="@android:color/holo_green_light"-->
-<!--            android:layout_marginRight="60dp"-->
-<!--            />-->
         <ImageButton
 
-            android:layout_width="60dp"
+            android:layout_width="100dp"
             android:layout_height="60dp"
             android:id="@+id/rec_btn"
             android:layout_marginBottom="10dp"
             android:src="@drawable/translate_button_image"
-            android:background="@android:color/holo_green_light"
+            android:background="@drawable/rounded_corner2"
 
             />
 
@@ -61,7 +56,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/image_view"
-            android:scaleType="fitXY"/>
+            android:scaleType="fitXY"
+            android:layout_marginBottom="10dp"
+            />
 
 
     </RelativeLayout>

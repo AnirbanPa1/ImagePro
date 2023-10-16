@@ -121,88 +121,147 @@ public class CameraActivity extends Activity implements CameraBridgeViewBase.CvC
         text_view.setVisibility(View.GONE);
 
         take_pic_button=findViewById(R.id.take_pic_button);
-        take_pic_button.setOnTouchListener(new View.OnTouchListener() {
+        take_pic_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    return true;
+            public void onClick(View v) {
+                if(Camera_or_recognizeText == "camera"){
+                    take_pic_button.setColorFilter(Color.DKGRAY);
+                    Mat a = mRgba.t();
+                    Core.flip(a,mRgba,1);
+                    a.release();
+                    bitmap=Bitmap.createBitmap(mRgba.cols(),mRgba.rows(),Bitmap.Config.ARGB_8888);
+                    Utils.matToBitmap(mRgba,bitmap);
+                    mOpenCvCameraView.disableView();
+                    Camera_or_recognizeText="recognizeText";
+
+                }else{
+                    take_pic_button.setColorFilter(Color.WHITE);
+                    text_view.setVisibility(View.GONE);
+                    current_image.setVisibility(View.GONE);
+                    mOpenCvCameraView.enableView();
+                    text_view.setText("");
+                    Camera_or_recognizeText="camera";
                 }
-
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    if(Camera_or_recognizeText == "camera"){
-                        take_pic_button.setColorFilter(Color.DKGRAY);
-                        Mat a = mRgba.t();
-                        Core.flip(a,mRgba,1);
-                        a.release();
-                        bitmap=Bitmap.createBitmap(mRgba.cols(),mRgba.rows(),Bitmap.Config.ARGB_8888);
-                        Utils.matToBitmap(mRgba,bitmap);
-                        mOpenCvCameraView.disableView();
-                        Camera_or_recognizeText="recognizeText";
-
-                    }else{
-                        take_pic_button.setColorFilter(Color.WHITE);
-                        text_view.setVisibility(View.GONE);
-                        current_image.setVisibility(View.GONE);
-                        mOpenCvCameraView.enableView();
-                        text_view.setText("");
-                        Camera_or_recognizeText="camera";
-                    }
-
-                    return true;
-                }
-
-                return false;
             }
         });
+//        take_pic_button.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                    return true;
+//                }
+//
+//                if(event.getAction() == MotionEvent.ACTION_UP){
+//                    if(Camera_or_recognizeText == "camera"){
+//                        take_pic_button.setColorFilter(Color.DKGRAY);
+//                        Mat a = mRgba.t();
+//                        Core.flip(a,mRgba,1);
+//                        a.release();
+//                        bitmap=Bitmap.createBitmap(mRgba.cols(),mRgba.rows(),Bitmap.Config.ARGB_8888);
+//                        Utils.matToBitmap(mRgba,bitmap);
+//                        mOpenCvCameraView.disableView();
+//                        Camera_or_recognizeText="recognizeText";
+//
+//                    }else{
+//                        take_pic_button.setColorFilter(Color.WHITE);
+//                        text_view.setVisibility(View.GONE);
+//                        current_image.setVisibility(View.GONE);
+//                        mOpenCvCameraView.enableView();
+//                        text_view.setText("");
+//                        Camera_or_recognizeText="camera";
+//                    }
+//
+//                    return true;
+//                }
+//
+//                return false;
+//            }
+//        });
 
         translate_button=findViewById(R.id.translate_button);
-        translate_button.setOnTouchListener(new View.OnTouchListener() {
+        translate_button.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN){
-                    translate_button.setColorFilter(Color.DKGRAY);
-                    return true;
+            public void onClick(View v) {
+                if(Camera_or_recognizeText=="recognizeText"){
+
+                    //text_view.setVisibility(View.VISIBLE);
+
+                    InputImage image = InputImage.fromBitmap(bitmap,0);
+                    Task<Text> result = textRecognizer.process(image)
+                            .addOnSuccessListener(new OnSuccessListener<Text>() {
+                                @Override
+                                public void onSuccess(Text text) {
+
+                                    text_view.setText(text.getText());
+                                    //CHANGE
+                                    String str = text.getText().toString();
+                                    Intent intent = new Intent(getApplicationContext(),trActivity.class);
+                                    intent.putExtra("msg_key",str);
+                                    startActivity(intent);
+                                    //CHANGE
+                                    Log.d("CameraActivity","Out"+text.getText());
+
+                                }
+                            })
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+
+                                }
+                            });
+                }else{
+                    Toast.makeText(CameraActivity.this,"Please take a photo",
+                            Toast.LENGTH_LONG).show();
                 }
-
-                if(event.getAction() == MotionEvent.ACTION_UP){
-                    translate_button.setColorFilter(Color.WHITE);
-                    if(Camera_or_recognizeText=="recognizeText"){
-
-                        //text_view.setVisibility(View.VISIBLE);
-
-                        InputImage image = InputImage.fromBitmap(bitmap,0);
-                        Task<Text> result = textRecognizer.process(image)
-                                .addOnSuccessListener(new OnSuccessListener<Text>() {
-                                    @Override
-                                    public void onSuccess(Text text) {
-
-                                        text_view.setText(text.getText());
-                                        //CHANGE
-                                        String str = text.getText().toString();
-                                        Intent intent = new Intent(getApplicationContext(),trActivity.class);
-                                        intent.putExtra("msg_key",str);
-                                        startActivity(intent);
-                                        //CHANGE
-                                        Log.d("CameraActivity","Out"+text.getText());
-
-                                    }
-                                })
-                                .addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-
-                                    }
-                                });
-                    }else{
-                        Toast.makeText(CameraActivity.this,"Please take a photo",
-                                Toast.LENGTH_LONG).show();
-                    }
-                    return true;
-                }
-
-                return false;
             }
         });
+//        translate_button.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction() == MotionEvent.ACTION_DOWN){
+//                    translate_button.setColorFilter(Color.DKGRAY);
+//                    return true;
+//                }
+//
+//                if(event.getAction() == MotionEvent.ACTION_UP){
+//                    translate_button.setColorFilter(Color.WHITE);
+//                    if(Camera_or_recognizeText=="recognizeText"){
+//
+//                        //text_view.setVisibility(View.VISIBLE);
+//
+//                        InputImage image = InputImage.fromBitmap(bitmap,0);
+//                        Task<Text> result = textRecognizer.process(image)
+//                                .addOnSuccessListener(new OnSuccessListener<Text>() {
+//                                    @Override
+//                                    public void onSuccess(Text text) {
+//
+//                                        text_view.setText(text.getText());
+//                                        //CHANGE
+//                                        String str = text.getText().toString();
+//                                        Intent intent = new Intent(getApplicationContext(),trActivity.class);
+//                                        intent.putExtra("msg_key",str);
+//                                        startActivity(intent);
+//                                        //CHANGE
+//                                        Log.d("CameraActivity","Out"+text.getText());
+//
+//                                    }
+//                                })
+//                                .addOnFailureListener(new OnFailureListener() {
+//                                    @Override
+//                                    public void onFailure(@NonNull Exception e) {
+//
+//                                    }
+//                                });
+//                    }else{
+//                        Toast.makeText(CameraActivity.this,"Please take a photo",
+//                                Toast.LENGTH_LONG).show();
+//                    }
+//                    return true;
+//                }
+//
+//                return false;
+//            }
+//        });
 
         show_image_button=findViewById(R.id.show_image_button);
         show_image_button.setOnTouchListener(new View.OnTouchListener() {

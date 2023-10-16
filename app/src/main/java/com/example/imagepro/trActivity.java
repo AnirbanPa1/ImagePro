@@ -9,13 +9,18 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.Locale;
 
 
 public class trActivity extends AppCompatActivity {
+
 
     TextView received_value_id;
     TextToSpeech textToSpeech;
@@ -55,11 +60,6 @@ public class trActivity extends AppCompatActivity {
 
     }
 
-//    @Override
-//    protected void onDestroy() {
-
-//        super.onDestroy();
-//    }
 
     @Override
     public void onBackPressed() {
@@ -81,7 +81,6 @@ public class trActivity extends AppCompatActivity {
         received_value_id.setText(str);
         Log.d("MSG RECEIVED","OUT"+str);
 
-
         textToSpeech = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
             @Override
             public void onInit(int i) {
@@ -99,12 +98,6 @@ public class trActivity extends AppCompatActivity {
             public void onClick(View view) {
                 textToSpeech.speak(str,TextToSpeech.QUEUE_FLUSH,null);
             }
-
         });
-
-
     }
-
-
-
 }

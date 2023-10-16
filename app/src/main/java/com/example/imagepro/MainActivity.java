@@ -9,9 +9,18 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import org.opencv.android.OpenCVLoader;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 public class MainActivity extends AppCompatActivity {
+
     static {
         if(OpenCVLoader.initDebug()){
             Log.d("MainActivity: ","Opencv is loaded");
@@ -34,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
         camera_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,CameraActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MainActivity.this,CameraActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 
@@ -42,7 +52,8 @@ public class MainActivity extends AppCompatActivity {
         storage_Image_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this,storageRecognitionActivity.class).addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
+                startActivity(new Intent(MainActivity.this,storageRecognitionActivity.class)
+                        .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP));
             }
         });
 

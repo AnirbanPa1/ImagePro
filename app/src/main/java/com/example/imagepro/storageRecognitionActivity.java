@@ -63,36 +63,8 @@ public class storageRecognitionActivity extends AppCompatActivity {
             }
         });
 
-        textRecognizer= TextRecognition.getClient(new DevanagariTextRecognizerOptions.Builder().build());
-        //text_view = findViewById(R.id.text_view);
-        //text_view.setVisibility(View.GONE);
-
-//        recognizeImage_button=findViewById(R.id.recognizeImage_button);
-//        recognizeImage_button.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if(event.getAction()==MotionEvent.ACTION_DOWN){
-//                    recognizeImage_button.setColorFilter(Color.DKGRAY);
-//                    return true;
-//                }
-//                if(event.getAction()==MotionEvent.ACTION_UP){
-//                    recognizeImage_button.setColorFilter(Color.WHITE);
-//                    recognize(bitmap);
-//                    if(show_image_or_text=="text"){
-//                        //text_view.setVisibility(View.GONE);
-//                        image_view.setVisibility(View.VISIBLE);
-//                        show_image_or_text="image";
-//
-//                    }else{
-//                        //text_view.setVisibility(View.VISIBLE);
-//                        image_view.setVisibility(View.GONE);
-//                        show_image_or_text="text";
-//                    }
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
+        textRecognizer= TextRecognition.
+                getClient(new DevanagariTextRecognizerOptions.Builder().build());
 
         rec_btn = findViewById(R.id.rec_btn);
         rec_btn.setOnClickListener(new View.OnClickListener() {
@@ -116,24 +88,14 @@ public class storageRecognitionActivity extends AppCompatActivity {
         if(resultCode==RESULT_OK){
             if(requestCode==Selected_Picture){
                 Uri selectedImageUri=data.getData();
-                //CHANGE
-//                String[] filepath={MediaStore.Images.Media.DATA};
-//
-//                Cursor cursor = getContentResolver().query(selectedImageUri,filepath,null,null,null);
-//                cursor.moveToFirst();
-//                int columnIndex=cursor.getColumnIndex(filepath[0]);
-//                String picturepath = cursor.getString(columnIndex);
-//                cursor.close();
-                //CHANGE
 
                 if(selectedImageUri != null){
                     Log.d("storage_Activity","Output Uri: "+selectedImageUri);
 
                     try{
-                        bitmap= MediaStore.Images.Media.getBitmap(this.getContentResolver(),selectedImageUri);
-
+                        bitmap= MediaStore.Images.Media.
+                                getBitmap(this.getContentResolver(),selectedImageUri);
                         image_view.setImageBitmap(bitmap);
-
                         show_image_or_text = "image";
 
                     }catch(IOException e){
@@ -175,3 +137,44 @@ public class storageRecognitionActivity extends AppCompatActivity {
     }
 
 }
+
+//text_view = findViewById(R.id.text_view);
+//text_view.setVisibility(View.GONE);
+
+//        recognizeImage_button=findViewById(R.id.recognizeImage_button);
+//        recognizeImage_button.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if(event.getAction()==MotionEvent.ACTION_DOWN){
+//                    recognizeImage_button.setColorFilter(Color.DKGRAY);
+//                    return true;
+//                }
+//                if(event.getAction()==MotionEvent.ACTION_UP){
+//                    recognizeImage_button.setColorFilter(Color.WHITE);
+//                    recognize(bitmap);
+//                    if(show_image_or_text=="text"){
+//                        //text_view.setVisibility(View.GONE);
+//                        image_view.setVisibility(View.VISIBLE);
+//                        show_image_or_text="image";
+//
+//                    }else{
+//                        //text_view.setVisibility(View.VISIBLE);
+//                        image_view.setVisibility(View.GONE);
+//                        show_image_or_text="text";
+//                    }
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
+
+
+//CHANGE
+//                String[] filepath={MediaStore.Images.Media.DATA};
+//
+//                Cursor cursor = getContentResolver().query(selectedImageUri,filepath,null,null,null);
+//                cursor.moveToFirst();
+//                int columnIndex=cursor.getColumnIndex(filepath[0]);
+//                String picturepath = cursor.getString(columnIndex);
+//                cursor.close();
+//CHANGE

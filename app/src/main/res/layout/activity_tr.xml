@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#161a1d"
     tools:context=".trActivity">
 
 
@@ -15,18 +16,21 @@
             android:src="@drawable/speak_button"
             android:layout_margin="16dp"
             app:fabSize="normal"
+            android:backgroundTint="@color/purple_200"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
         <TextView
+            android:id="@+id/received_value_id"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="10dp"
-            android:id="@+id/received_value_id"
             android:background="@color/white"
+            tools:layout_editor_absoluteX="9dp"
+            tools:layout_editor_absoluteY="3dp"
+            android:backgroundTint="#161a1d"
+            android:textColor="@color/white"
             />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
